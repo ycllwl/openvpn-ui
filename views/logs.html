@@ -1,12 +1,12 @@
 {{ template "layout/base.html" . }}
 {{define "head"}}
-<title>OpenVPN - Logs</title>
+<title>OpenVPN - 日志</title>
 {{end}}
 
 {{define "body"}}
 <div class="card card-default">
   <div class="card-header with-border">
-    <h3 class="card-title">OpenVPN Server log</h3>
+    <h3 class="card-title">OpenVPN 服务端日志</h3>
       <div class="pull-right card-tools">
         <button type="button" class="btn btn-tool" data-card-widget="collapse">
           <i class="fa fa-minus"></i></button>
@@ -24,7 +24,7 @@
         </textarea>
       </div>
     </form>
-    <span id="helpBlock" class="text-muted">Last 300 lines of openvpn.log</span>
+    <span id="helpBlock" class="text-muted">openvpn.log 最近 300 行</span>
   </div>
   <!-- /.card-body -->
 </div>  

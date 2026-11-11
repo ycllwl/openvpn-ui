@@ -1,7 +1,7 @@
 {{ template "layout/base.html" . }}
 
 {{define "head"}}
-<title>OpenVPN UI</title>
+<title>OpenVPN 管理面板</title>
 {{end}}
 
 {{define "body"}}
@@ -13,22 +13,22 @@
         <h3>Clients: {{ .ovstats.NClients }}</h3>
         <div class="info-box-content">
           <span class="info-box-text">
-            In: <span class="info-box-number2">{{ printmb .ovstats.BytesIn }} MB</span>
+            下行： <span class="info-box-number2">{{ printmb .ovstats.BytesIn }} MB</span>
           </span><br>
           <span class="info-box-text">
-            Out: <span class="info-box-number2">{{ printmb .ovstats.BytesOut }} MB </span>
+            上行： <span class="info-box-number2">{{ printmb .ovstats.BytesOut }} MB </span>
           </span>
         </div>
       </div>
       <div class="icon">
         <i class="fa fa-group"></i>
       </div>
-      <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="small-box-footer">更多信息 <i class="fa fa-arrow-circle-right"></i></a>
       <div class="card-group" id="accordion">
       </div>
       <div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
         <div class="card-body text-center">
-          <span>Connected Clients and All traffic</span>
+          <span>在线客户端与总流量</span>
         </div>
       </div>
     </div>
@@ -37,15 +37,15 @@
   <div class="col-lg-3 col-6">
     <div class="small-box bg-success shadow">
       <div class="inner">
-        <h3>Load Average<sup style="font-size: 20px"></sup></h3>
+        <h3>平均负载<sup style="font-size: 20px"></sup></h3>
         <div class="info-box-content">
           <span class="info-box-text">
-            CPU count: <span class="info-box-number2">
+            CPU 核心数： <span class="info-box-number2">
             {{ .sysinfo.CPUList.List | len }}
             </span>
           </span><br>
           <span class="info-box-number">
-            1m: <b>{{ .sysinfo.LoadAvg.One }}</b> &nbsp; &nbsp;
+            1 分钟： <b>{{ .sysinfo.LoadAvg.One }}</b> &nbsp; &nbsp;
             5m: <b>{{ .sysinfo.LoadAvg.Five }}</b> &nbsp; &nbsp;
             15m: <b>{{ .sysinfo.LoadAvg.Fifteen }}</b><br/>
           </span>
@@ -54,12 +54,12 @@
       <div class="icon">
         <i class="ion ion-stats-bars"></i>
       </div>
-      <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="small-box-footer">更多信息 <i class="fa fa-arrow-circle-right"></i></a>
         <div class="card-group" id="accordion">
         </div>
         <div id="collapseTwo" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
           <div class="card-body text-center">
-            <span>Last one, five and ten minutes</span>
+            <span>最近 1、5、15 分钟</span>
           </div>
         </div>
     </div>
@@ -68,18 +68,18 @@
   <div class="col-lg-3 col-6">
     <div class="small-box shadow" style="background-color:#ffc107; color: white;">
       <div class="inner">
-        <h3>OS uptime</h3>
+        <h3>系统运行时长</h3>
         <span class="info-box-number">{{ .sysinfo.UptimeS }}</span><br/><br/>
       </div>
       <div class="icon">
         <i class="ion ion-arrow-graph-up-right"></i>
       </div>
-      <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="small-box-footer">更多信息 <i class="fa fa-arrow-circle-right"></i></a>
         <div class="card-group" id="accordion">
         </div>
         <div id="collapseThree" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
           <div class="card-body text-center">
-            <span>How long your server is running</span>
+            <span>服务器已运行时间</span>
           </div>
         </div>
     </div>
@@ -88,7 +88,7 @@
   <div class="col-lg-3 col-6">
     <div class="small-box shadow" style="background-color: #e83e8c; color: white;">
       <div class="inner">
-        <h3>Server Time</h3>
+        <h3>服务器时间</h3>
         <span class="info-box-number">
           {{ dateformat .sysinfo.CurrentTime "2006-01-02 15:04:05"}}
         </span><br/><br/>
@@ -96,26 +96,26 @@
       <div class="icon">
         <i class="fa fa-clock-o"></i>
       </div>
-      <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" class="small-box-footer">更多信息 <i class="fa fa-arrow-circle-right"></i></a>
         <div class="card-group" id="accordion">
         </div>
         <div id="collapseFour" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
           <div class="card-body text-center">
-            <span>Server time in it's local Time Zone</span>
+            <span>服务器本地时区时间</span>
           </div>
         </div>
     </div>
   </div>
 </div>
 
-<h3 class="mt-4 mb-2">Memory usage</h3>
+<h3 class="mt-4 mb-2">内存使用</h3>
 <div class="row">
   <div class="col-md-6">
     <div class="card">
       <div class="card-body">
         <div class="progress-group">
           <span class="progress-number">
-            Memory <b>{{ printmb .sysinfo.Memory.Used }}</b>
+            内存 <b>{{ printmb .sysinfo.Memory.Used }}</b>
             /
             {{ printmb .sysinfo.Memory.Total }} MB
             - {{percent .sysinfo.Memory.Used .sysinfo.Memory.Total}}%
@@ -135,7 +135,7 @@
       <div class="card-body">
         <div class="progress-group">
           <span class="progress-number">
-            Swap <b>{{ printmb .sysinfo.Swap.Used }}</b>
+            交换分区 <b>{{ printmb .sysinfo.Swap.Used }}</b>
             /
             {{ printmb .sysinfo.Swap.Total }} MB
             - {{percent .sysinfo.Swap.Used .sysinfo.Swap.Total}}%
@@ -155,7 +155,7 @@
   <div class="col-md-12">
     <div class="card card-default">
       <div class="card-header with-border">
-        <h3 class="card-title">Connected clients</h3>
+        <h3 class="card-title">在线客户端</h3>
       </div>
       <!-- /.card-header -->
 
@@ -165,13 +165,13 @@
           <table class="table no-margin">
             <thead>
             <tr>
-              <th>Common Name</th>
-              <th>Real Address</th>
-              <th>Virtual Address</th>
-              <th>KB Received</th>
-              <th>KB Sent</th>
-              <th>Connected Since</th>
-              <th>Username</th>
+              <th>通用名（CN）</th>
+              <th>实际地址</th>
+              <th>虚拟地址</th>
+              <th>接收（KB）</th>
+              <th>发送（KB）</th>
+              <th>连接起始</th>
+              <th>用户名</th>
               <th></th>
             </tr>
             </thead>
@@ -204,7 +204,7 @@
                 <td>
                   <a href="javascript:$.MyAPP.Disconnect('{{.CommonName}}')"
                     class="btn btn-xs btn-danger btn-flat"
-                    title="Disconnect">X</a>
+                    title="断开">X</a>
                 </td>
             </tr>
             {{end}}
@@ -227,7 +227,7 @@
 <!-- /.card-body -->
 
 
-<!--h3 class="mt-4 mb-2">Info Section</h3-->
+<!--h3 class="mt-4 mb-2">信息</h3-->
 
   <div class="row">
     <div class="col-md-6 col-sm-12 col-12">
@@ -237,7 +237,7 @@
         </span>
           <!--i class="fa fa-info fa-2x"></i></span-->
         <div class="info-box-content">
-          <span class="info-box-text">OpenVPN version:</span>
+          <span class="info-box-text">OpenVPN 版本：</span>
           <span class="info-box-number3">{{ .ovversion }}</span>
         </div>
       </div>
@@ -247,9 +247,9 @@
       <div class="info-box">
         <span class="info-box-icon bg-danger elevation-1 border-width: 3px;" style="padding: 10px; width: 100px; height: 100px;"><i class="fa fa-gears fa-2x"></i></span>
         <div class="info-box-content">
-          <span class="info-box-text">Operating system:</span>
+          <span class="info-box-text">操作系统：</span>
           <span class="info-box-number3">{{ .sysinfo.Os }}</span>
-          <span class="info-box-text">Architecture: </span>
+          <span class="info-box-text">架构： </span>
           <span class="info-box-number3">{{ .sysinfo.Arch }} </span>
         </div>
       </div>

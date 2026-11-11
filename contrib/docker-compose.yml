@@ -1,0 +1,46 @@
+# ─────────────────────────────────────────────────────────────
+# OpenVPN 服务端 + 管理面板（飞牛 .250）# 所有可调参数都在 .env 里，本文件不用改
+# 部署：cd /vol2/1000/docker/compose/openvpn && docker compose up -d
+# 迁移：整个目录（.env / pki / clients / config / views-zh）一起搬，改 IP 即可
+# ─────────────────────────────────────────────────────────────
+services:
+  openvpn:
+    container_name: openvpn
+    image: d3vilh/openvpn-server:latest
+    restart: unless-stopped
+    privileged: true
+    ports:
+      - "${OVPN_PORT}:${OVPN_PORT}/udp"     # 对外端口；路由器要 1195/udp → 本机 1195
+    environment:
+      TZ: ${TZ}
+      TRUST_SUB: ${TRUST_SUB}               # 受信任客户端网段（对应 server.conf 的 server 行）
+      GUEST_SUB: ${GUEST_SUB}               # 访客网段（本部署未启用）
+      HOME_SUB: ${HOME_SUB}                 # 家庭内网，容器内做 NAT 让客户端能访问
+    volumes:
+      - ./pki:/etc/openvpn/pki              # CA / 服务端与客户端证书（重要，和备份一起搬）
+      - ./clients:/etc/openvpn/clients      # 生成的 *.ovpn
+      - ./config:/etc/openvpn/config        # easy-rsa.vars / client.conf 模板
+      - ./staticclients:/etc/openvpn/staticclients
+      - ./log:/var/log/openvpn
+      - ./server.conf:/etc/openvpn/server.conf   # 服务端配置（端口/网段/推送路由都在这）
+      - ./fw-rules.sh:/opt/app/fw-rules.sh
+      - ./checkpsw.sh:/opt/app/checkpsw.sh
+    cap_add:
+      - NET_ADMIN
+
+  openvpn-ui:
+    container_name: openvpn-ui
+    image: openvpn-ui-zh:1.0
+    restart: unless-stopped
+    privileged: true
+    ports:
+      - "${UI_PORT}:8080/tcp"               # 管理面板
+    environment:
+      TZ: ${TZ}
+      OPENVPN_ADMIN_USERNAME: ${UI_ADMIN_USER}
+      OPENVPN_ADMIN_PASSWORD: ${UI_ADMIN_PASSWORD}
+    volumes:
+      - ./:/etc/openvpn
+      - ./db:/opt/openvpn-ui/db
+      - ./pki:/usr/share/easy-rsa/pki
+      - /var/run/docker.sock:/var/run/docker.sock:ro

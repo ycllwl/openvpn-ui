@@ -1,0 +1,29 @@
+management 0.0.0.0 2080
+port 1195
+proto udp
+dev tun
+ca pki/ca.crt
+cert pki/issued/server.crt
+key pki/private/server.key
+cipher AES-256-GCM
+auth SHA512
+dh pki/dh.pem
+server 10.8.0.0 255.255.255.0
+ifconfig-pool-persist pki/ipp.txt
+push "route 192.168.1.0 255.255.255.0"
+push "dhcp-option DNS 192.168.1.1"
+push "dhcp-option DNS 223.5.5.5"
+keepalive 10 120
+max-clients 20
+persist-key
+persist-tun
+log /var/log/openvpn/openvpn.log
+verb 3
+topology subnet
+client-config-dir /etc/openvpn/staticclients
+data-ciphers AES-256-GCM:AES-192-GCM:AES-128-GCM
+user nobody
+group nogroup
+status /var/log/openvpn/openvpn-status.log
+explicit-exit-notify 1
+crl-verify pki/crl.pem
