@@ -1,5 +1,7 @@
 # OpenVPN UI
 
+**English** | [简体中文](README.zh-CN.md)
+
 OpenVPN server web administration interface.
 
 Quick to deploy and easy to use, makes work with small OpenVPN environments a breeze.
